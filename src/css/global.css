@@ -1,0 +1,146 @@
+@import url("reset.css") layer(reset);
+
+:root {
+  /* FluentUI Spacing - https://react.fluentui.dev/?path=/docs/theme-spacing--docs */
+  --spacingXXS: 2px;
+  --spacingXS: 4px;
+  --spacingSNudge: 6px;
+  --spacingS: 8px;
+  --spacingMNudge: 10px;
+  --spacingM: 12px;
+  --spacingL: 16px;
+  --spacingXL: 20px;
+  --spacingXXL: 24px;
+  --spacingXXXL: 32px;
+
+  /* App variables */
+  --gutter: var(--spacingM);
+
+  /* 
+  tokens color variables to apply to charting callout components
+  rendered out of FluentProvider 
+  */
+  --colorNeutralForeground1: #242424;
+  --colorNeutralCardBackground: #fafafa;
+
+  --colorTooltipBackground: var(--colorNeutralCardBackground);
+  --colorTooltipForeground: var(--colorNeutralForeground1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --colorNeutralForeground1: #ffffff;
+    --colorNeutralCardBackground: #333333;
+  }
+}
+
+@layer composition {
+  /* 
+  Based on https://github.com/Set-Creative-Studio/cube-boilerplate/tree/main/src/css/compositions 
+  */
+
+  /* 
+  FLOW COMPOSITION 
+  Like the Every Layout stack: https://every-layout.dev/layouts/stack/
+  Info about this implementation: https://piccalil.li/quick-tip/flow-utility/ 
+  */
+  .flow > * + * {
+    margin-top: var(--flow-space, 1em);
+  }
+
+  /*
+  CLUSTER
+  More info: https://every-layout.dev/layouts/cluster/
+  A layout that lets you distribute items with consitent
+  spacing, regardless of their size
+
+  CUSTOM PROPERTIES AND CONFIGURATION
+  --gutter: This defines the space
+  between each item.
+
+  --cluster-horizontal-alignment (flex-start) How items should align
+  horizontally. Can be any acceptable flexbox aligmnent value.
+
+  --cluster-vertical-alignment How items should align vertically.
+  Can be any acceptable flexbox alignment value.
+  */
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gutter);
+    justify-content: var(--cluster-horizontal-alignment, flex-start);
+    align-items: var(--cluster-vertical-alignment, center);
+  }
+
+  .cluster[data-justify-content="space-between"] {
+    --cluster-horizontal-alignment: space-between;
+  }
+
+  .cluster[data-spacing="s"] {
+    --gutter: var(--spacingS);
+  }
+
+  /*
+  REPEL
+  A little layout that pushes items away from each other where
+  there is space in the viewport and stacks on small viewports
+
+  CUSTOM PROPERTIES AND CONFIGURATION
+  --gutter: This defines the space
+  between each item.
+
+  --repel-vertical-alignment How items should align vertically.
+  Can be any acceptable flexbox alignment value.
+  */
+  .repel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: var(--repel-vertical-alignment, center);
+    gap: var(--gutter);
+  }
+}
+
+/* Table */
+.table-wrapper {
+  --flow-space: 1.5em;
+}
+
+[role="gridcell"]:has(a) {
+  align-items: normal;
+}
+
+[role="gridcell"] a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Chart */
+.donut-chart {
+  transform: translateY(-20px);
+}
+
+.donut-chart__legend {
+  transform: translateY(-30px);
+}
+
+.donut-chart__legend-rect {
+  border-radius: var(--borderRadiusSmall);
+}
+
+/* 
+TODO: Review after @fluentui/react-charts-preview is updated,
+if there's another way to target the following styles without FUI classes.
+*/
+.donut-chart__legend .fui-legend__resizableArea {
+  justify-content: center;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.donut-chart__legend .fui-legend__resizableArea > * {
+  margin: 0 !important;
+}
