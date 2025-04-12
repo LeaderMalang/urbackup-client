@@ -13,9 +13,9 @@ export default defineConfig({
     lingui(),
   ],
   server: {
-    host: "119.148.82.107",
+    host: "127.0.0.1",
     proxy: {
-      "/x": "http://119.148.82.107:55414/",
+      "/x": "http://localhost:55413",
     },
   },
 });
