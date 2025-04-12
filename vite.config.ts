@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     host: "127.0.0.1",
     proxy: {
-      "/x": "http://localhost:55413",
+      "/x": "http://localhost:55414",
     },
   },
 });
