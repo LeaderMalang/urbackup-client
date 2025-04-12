@@ -12,6 +12,7 @@ services:
       - vite-app
     volumes:
       - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
     restart: unless-stopped
