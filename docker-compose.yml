@@ -1,0 +1,17 @@
+services:
+  vite-app:
+    image: node:18-alpine3.17
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "npm install -g pnpm@latest && pnpm install --frozen-lockfile && pnpm run build"
+  
+  nginx:
+    image: nginx:stable
+    depends_on:
+      - vite-app
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"
+    restart: unless-stopped
